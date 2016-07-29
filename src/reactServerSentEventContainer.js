@@ -32,9 +32,10 @@ export const serverSentEventConnect = (eventSourceUrl, withCredentials = false, 
             const keys = Object.keys(eventObj);
 
             for (var i = 0; i < keys.length; i++) {
-                if (typeof(eventObj[keys[i]]) === 'function') {
+                const fn = eventObj[keys[i]];
+                if (typeof(fn) === 'function') {
                     eventSource.addEventListener(keys[i], event => {
-                        eventObj[keys[i]](event, eventSourceProps, eventSource);
+                        fn(event, eventSourceProps, eventSource);
                     });
                 }
             }
