@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 
-let nextVersion = 0
+let nextVersion = 0;
 
 export const serverSentEventConnect = (eventSourceUrl, withCredentials = false, onOpen, onMessage, onError, eventObj) => {
     const version = nextVersion++
@@ -33,7 +33,7 @@ export const serverSentEventConnect = (eventSourceUrl, withCredentials = false, 
 
             for (var i = 0; i < keys.length; i++) {
                 const fn = eventObj[keys[i]];
-                if (typeof(fn) === 'function') {
+                if (typeof (fn) === 'function') {
                     eventSource.addEventListener(keys[i], event => {
                         fn(event, eventSourceProps, eventSource);
                     });
@@ -81,14 +81,14 @@ export const serverSentEventConnect = (eventSourceUrl, withCredentials = false, 
                     return;
                 }
 
-                this.setState({sseProps: props});
+                this.setState({ sseProps: props });
             }
         }
 
         ServerSentEventComponent.displayName = displayName;
 
         if (process.env.NODE_ENV !== 'production') {
-            ServerSentEventComponent.prototype.componentWillUpdate =  function () {
+            ServerSentEventComponent.prototype.componentWillUpdate = function () {
                 if (this.version === version) {
                     return;
                 }
@@ -105,7 +105,7 @@ export const serverSentEventConnect = (eventSourceUrl, withCredentials = false, 
 };
 
 const getDisplayName = Component => {
-  return Component.displayName || Component.name || 'Component'
+    return Component.displayName || Component.name || 'Component'
 };
 
 class EventSourceProps {
@@ -115,7 +115,7 @@ class EventSourceProps {
     }
 
     update(props) {
-        this.props = {...this.props, ...props};
+        this.props = {...this.props, ...props };
         this.fire(this.props);
     }
 
