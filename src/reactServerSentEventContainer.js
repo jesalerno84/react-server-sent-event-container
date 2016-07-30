@@ -1,6 +1,9 @@
 /*global EventSource */
 
 import React, {Component} from 'react';
+import getDisplayName from './getDisplayName';
+import EventSourceProps from './eventSourceProps';
+import createEventSource from './createEventSource';
 
 let nextVersion = 0;
 
@@ -8,38 +11,9 @@ export const serverSentEventConnect = (eventSourceUrl, withCredentials = false, 
     const version = nextVersion++
 
     return ComponentToDecorate => {
-        if (!eventSourceUrl) {
-            throw new Error('eventSourceUrl is required');
-        }
-
         const displayName = `ServerSentEvent${getDisplayName(ComponentToDecorate)}`;
         const eventSourceProps = new EventSourceProps();
-
-        const eventSource = new EventSource(eventSourceUrl, { withCredentials });
-        eventSource.onopen = () => {
-            onOpen(eventSourceProps, eventSource);
-        };
-
-        eventSource.onmessage = event => {
-            onMessage(event, eventSourceProps, eventSource);
-        };
-
-        eventSource.onerror = event => {
-            onError(event, eventSourceProps, eventSource);
-        };
-
-        if (eventObj) {
-            const keys = Object.keys(eventObj);
-
-            for (var i = 0; i < keys.length; i++) {
-                const fn = eventObj[keys[i]];
-                if (typeof (fn) === 'function') {
-                    eventSource.addEventListener(keys[i], event => {
-                        fn(event, eventSourceProps, eventSource);
-                    });
-                }
-            }
-        }
+        const eventSource = createEventSource(eventSourceUrl, withCredentials = false, eventSourceProps, onOpen, onMessage, onError, eventObj)
 
         class ServerSentEventComponent extends Component {
             constructor(props, context) {
@@ -103,37 +77,3 @@ export const serverSentEventConnect = (eventSourceUrl, withCredentials = false, 
         return ServerSentEventComponent;
     };
 };
-
-const getDisplayName = Component => {
-    return Component.displayName || Component.name || 'Component'
-};
-
-class EventSourceProps {
-    constructor() {
-        this.handlers = [];
-        this.props = {};
-    }
-
-    update(props) {
-        this.props = {...this.props, ...props };
-        this.fire(this.props);
-    }
-
-    subscribe(fn) {
-        this.handlers.push(fn);
-    }
-
-    unsubscribe(fn) {
-        this.handlers = this.handlers.filter(item => {
-            if (item != fn) {
-                return item;
-            }
-        });
-    }
-
-    fire(props) {
-        for (var i = 0; i < this.handlers.length; i++) {
-            this.handlers[i](props);
-        }
-    }
-}
