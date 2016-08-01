@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d lib --source-maps true",
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --compilers js:babel-register --require test/setup.js"
   },
   "repository": {
     "type": "git",
@@ -33,8 +33,11 @@
     "babel-register": "^6.11.6",
     "chai": "^3.5.0",
     "eslint": "^3.1.1",
+    "eventsource": "^0.2.1",
     "express": "^4.14.0",
+    "jsdom": "^9.4.1",
     "mocha": "^2.5.3",
-    "react": "^15.2.1"
+    "react": "^15.2.1",
+    "sinon": "^1.17.5"
   }
 }

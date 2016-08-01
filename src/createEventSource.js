@@ -1,4 +1,4 @@
-export default createEventSource = (eventSourceUrl, withCredentials = false, eventSourceProps, onOpen, onMessage, onError, eventObj) => {
+export default (eventSourceUrl, withCredentials = false, eventSourceProps, onOpen, onMessage, onError, eventObj) => {
     if (!eventSourceUrl) {
         throw new Error('eventSourceUrl is required');
     }
@@ -8,17 +8,24 @@ export default createEventSource = (eventSourceUrl, withCredentials = false, eve
     }
 
     const eventSource = new EventSource(eventSourceUrl, { withCredentials });
-    eventSource.onopen = () => {
-        onOpen(eventSourceProps, eventSource);
-    };
 
-    eventSource.onmessage = event => {
-        onMessage(event, eventSourceProps, eventSource);
-    };
+    if (onOpen) {
+        eventSource.onopen = () => {
+            onOpen(eventSourceProps, eventSource);
+        };
+    }
 
-    eventSource.onerror = event => {
-        onError(event, eventSourceProps, eventSource);
-    };
+    if (onMessage) {
+        eventSource.onmessage = event => {
+            onMessage(event, eventSourceProps, eventSource);
+        };
+    }
+
+    if (onError) {
+        eventSource.onerror = event => {
+            onError(event, eventSourceProps, eventSource);
+        };
+    }
 
     if (eventObj) {
         const keys = Object.keys(eventObj);
@@ -32,4 +39,6 @@ export default createEventSource = (eventSourceUrl, withCredentials = false, eve
             }
         }
     }
+
+    return eventSource;
 };
