@@ -3,6 +3,3 @@ node_js:
   - "5"
 after_script:
   - codeclimate-test-reporter < lcov.info
-addons:
-  code_climate:
-    repo_token: asdf
