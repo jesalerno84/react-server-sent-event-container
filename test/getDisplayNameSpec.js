@@ -1,5 +1,5 @@
 const should = require('chai').should();
-const getDisplayName = require('../src/getDisplayName');
+import getDisplayName from '../src/getDisplayName';
 
 describe('getDisplayName', () => {
     it('should return \'Component\' if no displayName or name property on component', () => {
