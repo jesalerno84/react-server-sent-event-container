@@ -68,10 +68,8 @@ export const serverSentEventConnect = (eventSourceUrl, withCredentials = false, 
                     return;
                 }
 
-                // We are hot reloading!
-                this.version = version
+                this.version = version;
                 this._subscribe();
-                //this.clearCache()
             }
         }
 
