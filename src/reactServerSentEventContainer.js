@@ -1,6 +1,7 @@
 /*global EventSource */
 
 import React, {Component} from 'react';
+import EventSource from 'eventsource';
 import getDisplayName from './getDisplayName';
 import EventSourceProps from './eventSourceProps';
 import createEventSource from './createEventSource';

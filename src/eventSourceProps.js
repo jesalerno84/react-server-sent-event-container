@@ -1,3 +1,6 @@
+/**
+ * Container for props that come from the Server Sent Events
+ */
 export default class EventSourceProps {
     constructor() {
         this.handlers = [];
@@ -6,10 +9,14 @@ export default class EventSourceProps {
 
     update(props) {
         this.props = {...this.props, ...props };
-        this.fire(this.props);
+        this.fire();
     }
 
     subscribe(fn) {
+        if (typeof (fn) !== 'function') {
+            throw new Error('Only functions can be subscribed.');
+        }
+
         this.handlers.push(fn);
     }
 
@@ -21,9 +28,9 @@ export default class EventSourceProps {
         });
     }
 
-    fire(props) {
+    fire() {
         for (var i = 0; i < this.handlers.length; i++) {
-            this.handlers[i](props);
+            this.handlers[i](this.props);
         }
     }
 }
