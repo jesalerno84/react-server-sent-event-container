@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d lib --source-maps true",
-    "test": "mocha --compilers js:babel-register --require test/setup.js"
+    "test-mocha": "mocha --compilers js:babel-register --require test/setup.js",
+    "test": "nyc --reporter=lcov npm run test-mocha"
   },
   "repository": {
     "type": "git",
@@ -32,11 +33,13 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.11.6",
     "chai": "^3.5.0",
+    "codeclimate-test-reporter": "^0.3.3",
     "eslint": "^3.1.1",
     "eventsource": "^0.2.1",
     "express": "^4.14.0",
     "jsdom": "^9.4.1",
     "mocha": "^2.5.3",
+    "nyc": "^7.1.0",
     "react": "^15.2.1",
     "sinon": "^1.17.5"
   }
