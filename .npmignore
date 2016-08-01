@@ -2,3 +2,5 @@ example
 src
 .eslintrc
 .babelrc
+.travis.yml
+.codeclimate.yml
