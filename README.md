@@ -78,7 +78,11 @@ const eventObj = {
     }
 }
 ```
-
+Pass the url, withCredentials, and optional onOpen, onMessage, onError, and eventObj to 
+serverSentConnect and then pass your component to the resulting function.
 ```javascript
 export default serverSentEventConnect('http://someurl', false, onOpen, onMessage, onError, eventObj)(Event);
 ```
+
+## License
+MIT

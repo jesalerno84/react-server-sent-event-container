@@ -21,7 +21,7 @@
     "EventSource"
   ],
   "author": "Jeff Salerno",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jesalerno84/react-server-sent-event-container/issues"
   },
