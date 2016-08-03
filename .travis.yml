@@ -2,4 +2,4 @@ language: node_js
 node_js:
   - "5"
 after_script:
-  - codeclimate-test-reporter < /coverage/lcov.info
+  - codeclimate-test-reporter < ./coverage/lcov.info
