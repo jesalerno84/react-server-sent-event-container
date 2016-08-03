@@ -10,8 +10,7 @@ This is a wrapper container for a React component for listening to Server Sent E
 npm install react-server-sent-event-container
 ```
 ## Usage
-First import react and react-server-sent-event-container and 
-set up your component
+
 ```jsx
 import React from 'react';
 import {serverSentEventConnect} from 'react-server-sent-event-container';
@@ -19,10 +18,39 @@ const Event = ({
     message,
     eventSource
 }) => (
-    <div>
-        <h2>Testing events</h2>
-        <p>{message}</p>
-        <button onClick={ev => stopSSE(ev, eventSource) }>STOP</button>
-    </div>
-);
+        <div>
+            <h2>Testing events</h2>
+            <p>{message}</p>
+            <button onClick={ev => stopSSE(ev, eventSource) }>STOP</button>
+        </div>
+    );
+
+const stopSSE = (ev, eventSource) => {
+    ev.preventDefault();
+    eventSource.close();
+}
+
+const onOpen = (props, source) => {
+    console.log('open');
+};
+
+const onMessage = (event, props, source) => {
+    const item = JSON.parse(event.data);
+    props.update({'message': item.msg});
+};
+
+const onError = (event, props, source) => {
+    console.log('error');
+    console.log(event);
+    source.close();
+}
+
+const eventObj = {
+    someevent: (event, props, source) => {
+        const item = JSON.parse(event.data);
+        props.update({'message': item.msg});
+    }
+}
+
+export default serverSentEventConnect('http://localhost:3001/connect', false, onOpen, onMessage, onError, eventObj)(Event);
 ```
