@@ -1,1 +1,1 @@
-module.exports = require('lib/reactServerSentContainer');
+module.exports = require('./lib/reactServerSentEventContainer');
