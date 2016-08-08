@@ -4,3 +4,5 @@ src
 .babelrc
 .travis.yml
 .codeclimate.yml
+test
+.nyc_output
