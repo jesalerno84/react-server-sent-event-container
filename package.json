@@ -1,6 +1,6 @@
 {
   "name": "react-server-sent-event-container",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A react container for listening to server sent events.",
   "main": "index.js",
   "scripts": {
