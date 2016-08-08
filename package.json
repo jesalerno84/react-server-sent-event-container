@@ -4,7 +4,7 @@
   "description": "A react container for listening to server sent events.",
   "main": "index.js",
   "scripts": {
-    "build": "babel src -d lib --source-maps true",
+    "build": "babel src -d lib",
     "test-mocha": "mocha --compilers js:babel-register --require test/setup.js",
     "test": "nyc --reporter=lcov npm run test-mocha"
   },
