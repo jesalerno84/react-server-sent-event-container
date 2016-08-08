@@ -6,3 +6,6 @@ src
 .codeclimate.yml
 test
 .nyc_output
+travis.log
+coverage
+.npmignore
